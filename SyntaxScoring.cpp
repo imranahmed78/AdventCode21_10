@@ -1,16 +1,20 @@
-﻿// Submarine.cpp : Defines the entry point for the application.
+﻿// SyntaxScoring.cpp : Defines the entry point for the application.
 //
 
-#include "Submarine.h"
+#include "SyntaxScoring.h"
 
+SyntaxScoring::SyntaxScoring(std::string& puzzleRef):
+puzzle(puzzleRef)
+{}
 
-std::uint32_t Submarine::SyntaxScoring()
+std::uint32_t SyntaxScoring::IllegalCharacterScoring()
 {
   while (puzzleIterator != puzzle.end())
   {
     auto line = ExtractLine(startPosition, puzzleIterator);
     std::stack<char> stackOfOpenners{};
     expectedClosingChunk = {};
+
     for (auto chunk : line)
     {
       auto  result = IsOpeningOrCloseingChunck(chunk);
@@ -31,9 +35,7 @@ std::uint32_t Submarine::SyntaxScoring()
         }
       }
     }
-
   }
-
 
   return ([this]() {
     std::uint32_t score{};

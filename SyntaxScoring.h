@@ -5,7 +5,7 @@
 #include <algorithm>
 
 
-class Submarine
+class SyntaxScoring
 {
 
  private:
@@ -34,18 +34,7 @@ class Submarine
   };
 
   // puzzle string
-  std::string puzzle = {
-      "[({(<(())[]>[[{[]{<()<>>\n"
-      "[(()[<>])]({[<{<<[]>>(\n"
-      "{([(<{}[<>[]}>{[]{[(<()>\n"
-      "(((({<>}<{<{<>}{[]{[]{}\n"
-      "[[<[([]))<([[{}[[()]]]\n"
-      "[{[{({}]{}}([{[{{{}}([]\n"
-      "{<[[]]>}<{[{[{[]{()[[[]\n"
-      "[<(<(<(<{}))><([]([]()\n"
-      "<{([([[(<>()){}]>(<<{{\n"
-      "<{([{{}}[<[[[<>{}]]]>[]]"
-  };
+  std::string& puzzle;
 
   // puzzle iterator
   std::string::iterator puzzleIterator = puzzle.begin();
@@ -69,7 +58,24 @@ class Submarine
   std::uint32_t startPosition{};
 
  public:
-  std::uint32_t SyntaxScoring();
+
+  // Constructor
+  SyntaxScoring(std::string& puzzleRef);
+
+  // Delete Default Constructor;
+  SyntaxScoring() = delete;
+
+  // Delete copy construtor;
+  SyntaxScoring(const SyntaxScoring&) = delete;
+
+  // Delete copy operator
+  SyntaxScoring& operator=(SyntaxScoring const&) = delete;
+
+  // Delte move operator
+  SyntaxScoring& operator=(SyntaxScoring const&&) = delete;
+
+  // calculate the illegal character scoring
+  std::uint32_t IllegalCharacterScoring();
 
 };
 

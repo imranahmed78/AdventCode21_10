@@ -5,4 +5,4 @@ cmake_minimum_required (VERSION 3.8)
 
 project ("SubmarineSyntaxScoring")
 
-add_executable (SubmarineSyntaxScoring "main.cpp" "Submarine.cpp" "Submarine.h")
+add_executable (SubmarineSyntaxScoring "main.cpp" "SyntaxScoring.cpp" "SyntaxScoring.h")
