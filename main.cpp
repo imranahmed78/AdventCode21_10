@@ -15,7 +15,7 @@ int main() {
       "<{([{{}}[<[[[<>{}]]]>[]]"
   };
 
-  std::FILE * file = std::fopen("../puzzle.txt", "r");
+  std::FILE *file = std::fopen("../puzzle.txt", "r");
 
   if(!file)
   {
@@ -28,6 +28,7 @@ int main() {
   }
   else
   {
+    std::cout << " File found " << std::endl;
     puzzle.clear();
 
     fseek(file, 0, SEEK_END);
@@ -48,8 +49,11 @@ int main() {
     fclose(file);
   }
 
+  std::cout << " Start Scoring  " <<  " puzzle  size  "<<  puzzle.size() <<  std::endl;
   SyntaxScoring  syntaxScoring{puzzle};
-  std::cout  <<  " Score is " << syntaxScoring.IllegalCharacterScoring() << std::endl;
+  auto  result = syntaxScoring.ChunkScoring();
+  std::cout << " Illegal Charcter  Score is " << std::get<0>(result)
+            << " Completion Score is  " << std::get<1>(result) << std::endl;
   return 0;
 }
 

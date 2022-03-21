@@ -1,9 +1,9 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 #include <stack>
 #include <string>
 #include <algorithm>
-
+#include <vector>
+#include <tuple>
 
 class SyntaxScoring
 {
@@ -33,6 +33,17 @@ class SyntaxScoring
     illegalCounts[closingChunks.find(corruptChunk)]++;
   };
 
+  void InCompleteLinesScoring(std::stack<char>& stack)
+  {
+    std::uint64_t totalScore{};
+    while(!stack.empty())
+    {
+      totalScore =  (totalScore * 5 + points[1][openingChunks.find(stack.top())]);
+      stack.pop();
+    }
+    inCompleteLinesScores.push_back(totalScore);
+  }
+
   // puzzle string
   std::string& puzzle;
 
@@ -49,13 +60,17 @@ class SyntaxScoring
   char expectedClosingChunk{};
 
   // illegal character points
-  std::uint32_t const points[4]{ 3, 57, 1197, 25137 };
+  std::uint32_t const points[2][4]{ {3, 57, 1197, 25137},
+                                    {1,  2,     3 ,   4}};
 
   // record count for illegal characters
   std::uint32_t illegalCharacterCount[4]{};
 
   // starting position of charcter in the line
   std::uint32_t startPosition{};
+
+  // list of incomplete lines score
+  std::vector<std::uint64_t> inCompleteLinesScores{};
 
  public:
 
@@ -75,8 +90,6 @@ class SyntaxScoring
   SyntaxScoring& operator=(SyntaxScoring const&&) = delete;
 
   // calculate the illegal character scoring
-  std::uint32_t IllegalCharacterScoring();
+  std::tuple<std::uint32_t, std::uint64_t> ChunkScoring();
 
 };
-
-
